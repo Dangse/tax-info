@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대한세무법인 · 안내자료 모음</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #e2e8f0;
+            --card-bg: #ffffff;
+            --dark: #0f172a;
+            --mid: #1e293b;
+            --accent: #facc15;
+            --accent2: #38bdf8;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --tag-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg);
+            min-height: 100vh;
+            padding: 2rem 1rem 4rem;
+            color: var(--dark);
+        }
+
+        /* ── HEADER ── */
+        .header {
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+            text-align: center;
+        }
+        .header-badge {
+            display: inline-block;
+            background: var(--dark);
+            color: var(--accent);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem;
+        }
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 span {
+            color: var(--muted);
+            font-weight: 400;
+            font-size: 1.1rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+        .header p {
+            color: var(--muted);
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            max-width: 480px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-label span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── CARD LIST ── */
+        .list {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: stretch;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+            border-color: var(--dark);
+        }
+        .card:active { transform: scale(0.98); }
+
+        .card-stripe {
+            width: 6px;
+            flex-shrink: 0;
+            background: var(--dark);
+        }
+        .card-stripe.yellow  { background: var(--accent); }
+        .card-stripe.sky     { background: var(--accent2); }
+        .card-stripe.emerald { background: #34d399; }
+        .card-stripe.rose    { background: #fb7185; }
+
+        .card-inner {
+            flex: 1;
+            padding: 1.25rem 1.25rem 1.25rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 1rem;
+            background: var(--tag-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--dark);
+        }
+
+        .card-text { flex: 1; min-width: 0; }
+        .card-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--muted);
+            background: var(--tag-bg);
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+            line-height: 1.5;
+        }
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .card-date {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        .card-new {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #fff;
+            background: #ef4444;
+            padding: 0.1rem 0.45rem;
+            border-radius: 9999px;
+        }
+
+        .card-arrow {
+            color: #cbd5e1;
+            flex-shrink: 0;
+            transition: color 0.18s, transform 0.18s;
+        }
+        .card:hover .card-arrow {
+            color: var(--dark);
+            transform: translateX(3px);
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            max-width: 480px;
+            margin: 3rem auto 0;
+            text-align: center;
+        }
+        .footer p { color: #94a3b8; font-size: 0.75rem; line-height: 1.8; }
+        .footer a {
+            color: var(--muted);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .footer a:hover { color: var(--dark); }
+        .footer-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-badge">대한세무법인 · Tax Professional</div>
+        <h1>안내자료 모음
+            <span>고객 맞춤 세무 정보</span>
+        </h1>
+        <p>문자로 발송된 링크 자료를 한눈에 확인하세요.<br>궁금한 항목을 눌러 자세한 내용을 살펴보실 수 있습니다.</p>
+    </div>
+
+    <!-- SECTION LABEL -->
+    <div class="section-label">
+        <span>안내자료 목록</span>
+    </div>
+
+    <!-- CARD LIST -->
+    <div class="list" id="card-list">
+
+        <!-- ① 2025귀속 종합소득세 -->
+        <a class="card" href="2025귀속 종합소득세.html" target="_blank">
+            <div class="card-stripe yellow"></div>
+            <div class="card-inner">
+                <div class="card-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                </div>
+                <div class="card-text">
+                    <span class="card-tag">종합소득세</span>
+                    <div class="card-title">2025귀속 종합소득세 신고 안내</div>
+                    <div class="card-desc">결혼세액공제·자녀공제 확대 등 2026년 5월 달라진 세법 총정리</div>
+                    <div class="card-meta">
+                        <span class="card-date">2026.04</span>
+                        <span class="card-new">NEW</span>
+                    </div>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- ② 채무조정 & 폐업지원 -->
+        <a class="card" href="채무조정 폐업지원책.html" target="_blank">
+            <div class="card-stripe sky"></div>
+            <div class="card-inner">
+                <div class="card-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="card-text">
+                    <span class="card-tag">소상공인 지원</span>
+                    <div class="card-title">채무조정 &amp; 폐업지원책 안내</div>
+                    <div class="card-desc">새출발기금·서울·경기 지원책 한눈에 정리 — 소상공인 필독</div>
+                    <div class="card-meta">
+                        <span class="card-date">2026.04</span>
+                        <span class="card-new">NEW</span>
+                    </div>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+            </div>
+        </a>
+
+        <!--
+        ══════════════════════════════════════════════════
+        새 자료 추가 방법: 아래 블록을 복사해서 위에 붙여넣기
+        stripe 색상: yellow / sky / emerald / rose
+        ══════════════════════════════════════════════════
+
+        <a class="card" href="파일명.html" target="_blank">
+            <div class="card-stripe emerald"></div>
+            <div class="card-inner">
+                <div class="card-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        여기에 아이콘 SVG path 삽입
+                    </svg>
+                </div>
+                <div class="card-text">
+                    <span class="card-tag">태그명</span>
+                    <div class="card-title">제목</div>
+                    <div class="card-desc">한 줄 설명</div>
+                    <div class="card-meta">
+                        <span class="card-date">2026.MM</span>
+                        <span class="card-new">NEW</span>
+                    </div>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        -->
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-divider"></div>
+        <p>
+            <strong>대한세무법인</strong><br>
+            세무 상담이 필요하신가요?<br>
+            <a href="http://pf.kakao.com/_ddxbxcu/chat" target="_blank">카카오톡 채널 상담하기 →</a>
+        </p>
+        <p style="margin-top:1rem;">© 2026 대한세무법인 · 무단 전재 금지</p>
+    </div>
+
+</body>
+</html>
