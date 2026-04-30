@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채무조정 & 폐업지원 안내</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #cbd5e1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .card {
+            width: 100%;
+            max-width: 448px;
+            background: #fff;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 640px;
+            border: 6px solid #0f172a;
+        }
+        .card-header {
+            background-color: #0f172a;
+            padding: 2.5rem;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+        .icon-wrap {
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+        }
+        .icon-wrap svg { display: block; }
+        .icon-yellow { color: #facc15; }
+        .icon-sky    { color: #38bdf8; }
+        .icon-emerald{ color: #34d399; }
+        .icon-green  { color: #4ade80; }
+        .card-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+        .subtitle-badge {
+            color: #facc15;
+            font-weight: 700;
+            background: rgba(250,204,21,0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+        .card-body {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #f8fafc;
+        }
+        .slide-enter { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .text-center { text-align: center; }
+        .description {
+            color: #334155;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .cta-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #1e293b;
+            color: #fff;
+            border: none;
+            border-radius: 1rem;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+        .cta-btn:hover { background: #334155; }
+        .cta-btn:active { transform: scale(0.95); }
+        .detail-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.75rem;
+            background: #facc15;
+            color: #0f172a;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: opacity 0.15s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .detail-btn:hover { opacity: 0.85; }
+        .detail-btn:active { transform: scale(0.96); }
+        .cta-hint {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
+        }
+        .feature-list { display: flex; flex-direction: column; }
+        .feature-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem 0;
+        }
+        .feature-label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            flex-shrink: 0;
+            margin-right: 0.75rem;
+        }
+        .feature-value {
+            color: #0f172a;
+            font-weight: 900;
+            font-size: 0.875rem;
+            text-align: right;
+        }
+        .highlight-box {
+            background: #0f172a;
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .highlight-text {
+            color: #facc15;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+        .sub-text {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .action-btns { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+        .action-btn {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.15s, transform 0.1s;
+        }
+        .action-btn:active { transform: scale(0.97); opacity: 0.85; }
+        .action-btn-link { background: #facc15; color: #0f172a; }
+        .action-btn-copy { background: #1e293b; color: #fff; }
+        .copy-toast {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            color: #facc15;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            z-index: 999;
+        }
+        .card-nav {
+            background: #fff;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+        }
+        .nav-btn {
+            padding: 0.75rem;
+            border-radius: 9999px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-btn:hover { background: #f1f5f9; }
+        .nav-btn:active { transform: scale(0.90); }
+        .nav-btn-left  { color: #94a3b8; }
+        .nav-btn-right { color: #0f172a; }
+        .dots { display: flex; gap: 0.625rem; align-items: center; }
+        .dot {
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: #e2e8f0;
+            width: 0.5rem;
+            transition: width 0.4s, background 0.4s;
+        }
+        .dot.active { background: #0f172a; width: 2rem; }
+        .brand { margin-top: 2rem; text-align: center; }
+        .brand p:first-child {
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .brand p:last-child {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        <div class="icon-wrap icon-yellow" id="icon-wrap"></div>
+        <h1 id="slide-title"></h1>
+        <span class="subtitle-badge" id="slide-subtitle"></span>
+    </div>
+    <div class="card-body slide-enter" id="card-body"></div>
+    <div class="card-nav">
+        <button class="nav-btn nav-btn-left" id="prev-btn" aria-label="이전">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div class="dots" id="dots"></div>
+        <button class="nav-btn nav-btn-right" id="next-btn" aria-label="다음">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+    </div>
+</div>
+<div class="copy-toast" id="copy-toast">번호가 복사되었습니다!</div>
+
+<div class="brand">
+    <p>Tax Professional Guide</p>
+    <p>© 2026 채무조정 &amp; 폐업지원 안내 • 서울·경기 소상공인</p>
+</div>
+
+<script>
+var ICONS = {
+    lifeline: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M3.05 11H5"/><path d="M19 11h1.95"/><path d="M12 19v1.95"/><path d="M12 3.05V5"/></svg>',
+    fund:     '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+    seoul:    '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+    gyeonggi: '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    phone:    '<svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    arrow:    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'
+};
+
+var slides = [
+    {
+        title: "채무조정 & 폐업지원",
+        subtitle: "서울·경기 소상공인 지원책 총정리",
+        type: "intro",
+        icon: "lifeline",
+        iconColor: "icon-yellow",
+        description: "빚 부담에 폐업 걱정까지 겹쳐 힘드신가요?\n소상공인을 위한 실질적인 지원책을 알려드립니다.",
+        detailUrl: "http://pf.kakao.com/_ddxbxcu/113192865"
+    },
+    {
+        title: "새출발기금",
+        subtitle: "코로나 피해 소상공인 채무 조정 프로그램",
+        type: "feature",
+        icon: "fund",
+        iconColor: "icon-yellow",
+        content: [
+            { label: "대상 기간", value: "2020.04 ~ 2025.06 사업 운영자" },
+            { label: "부실차주", value: "3개월 이상 연체 → 원금 감면" },
+            { label: "원금 감면율", value: "60~80% (취약계층 최대 90%)" },
+            { label: "상환 기간", value: "거치 1~3년 / 분할 최대 10년" }
+        ],
+        highlight: null,
+        sub: "한국자산관리공사(캠코), 신용회복위원회 방문 신청 가능",
+        buttons: [
+            { label: "새출발기금.kr", url: "https://www.newstartfund.or.kr/" },
+            { label: "☎ 1660-1378", tel: "16601378" }
+        ]
+    },
+    {
+        title: "서울특별시",
+        subtitle: "소상공인 새 길 여는 폐업지원",
+        type: "feature",
+        icon: "seoul",
+        iconColor: "icon-sky",
+        content: [
+            { label: "지원금",    value: "최대 300만 원" },
+            { label: "지원 내용", value: "원상복구비·기술훈련비 등" },
+            { label: "컨설팅",   value: "세무·법률·직무 전환 제공" },
+            { label: "신청 조건", value: "서울 내 사업장 + 폐업 완료(예정)자" }
+        ],
+        highlight: null,
+        sub: null,
+        buttons: [
+            { label: "서울시 자영업지원센터", url: "https://www.seoulsbdc.or.kr/main.do" },
+            { label: "☎ 1577-6119", tel: "15776119" }
+        ]
+    },
+    {
+        title: "경기도",
+        subtitle: "소상공인 사업정리 지원사업",
+        type: "feature",
+        icon: "gyeonggi",
+        iconColor: "icon-emerald",
+        content: [
+            { label: "재기장려금", value: "200만 원 (현금 지원)" },
+            { label: "컨설팅",    value: "재창업·취업 1:1 맞춤 지원" },
+            { label: "신청 조건", value: "경기도 내 사업장 + 2025.1.1 이후 폐업" },
+            { label: "운영 요건", value: "6개월 이상 운영 필수" }
+        ],
+        highlight: null,
+        sub: null,
+        buttons: [
+            { label: "경기바로", url: "http://ggbaro.kr" },
+            { label: "☎ 1600-8001", tel: "16008001" }
+        ]
+    },
+    {
+        title: "전문가의 도움이 필요하신가요?",
+        subtitle: "복잡한 지원책, 놓치는 혜택 없게",
+        type: "cta",
+        icon: "phone",
+        iconColor: "icon-green",
+        description: "폐업했어도, 담당 세무사가 바뀌었어도\n소중한 인연을 바탕으로 정성껏 상담해 드립니다."
+    }
+];
+
+var current = 0;
+
+function copyNumber(num) {
+    navigator.clipboard.writeText(num).then(function() {
+        var toast = document.getElementById('copy-toast');
+        toast.style.display = 'block';
+        setTimeout(function() { toast.style.display = 'none'; }, 2000);
+    });
+}
+
+function render() {
+    var s = slides[current];
+
+    // 아이콘
+    var iconWrap = document.getElementById('icon-wrap');
+    iconWrap.innerHTML = ICONS[s.icon];
+    iconWrap.className = 'icon-wrap ' + s.iconColor;
+
+    // 헤더
+    document.getElementById('slide-title').textContent = s.title;
+    document.getElementById('slide-subtitle').textContent = s.subtitle;
+
+    // 바디 애니메이션 리트리거
+    var body = document.getElementById('card-body');
+    body.classList.remove('slide-enter');
+    void body.offsetWidth;
+    body.classList.add('slide-enter');
+
+    if (s.type === 'intro' || s.type === 'cta') {
+        var descHtml = s.description.replace(/\n/g, '<br>');
+        var detailHtml = s.detailUrl ? '<a href="' + s.detailUrl + '" target="_blank" class="detail-btn">지원책 상세보기</a>' : '';
+        var ctaHtml = s.type === 'cta' ? (
+            '<button class="cta-btn" onclick="window.open(\'http://pf.kakao.com/_ddxbxcu/chat\',\'_blank\')">' +
+            '세무 상담하기 ' + ICONS.arrow +
+            '</button>' +
+            '<p class="cta-hint">버튼을 누르면 카카오톡 상담창으로 연결됩니다.</p>'
+        ) : '';
+        body.innerHTML = '<div class="text-center"><p class="description">' + descHtml + '</p>' + detailHtml + ctaHtml + '</div>';
+    } else {
+        var rows = s.content.map(function(item) {
+            return '<div class="feature-row"><span class="feature-label">' + item.label + '</span><span class="feature-value">' + item.value + '</span></div>';
+        }).join('');
+        var subHtml = s.sub ? '<p class="sub-text">' + s.sub + '</p>' : '';
+        var bottomHtml;
+        if (s.buttons) {
+            var btnsHtml = s.buttons.map(function(b) {
+                if (b.url) {
+                    return '<button class="action-btn action-btn-link" onclick="window.open(\'' + b.url + '\',\'_blank\')">' + b.label + '</button>';
+                } else {
+                    return '<button class="action-btn action-btn-copy" onclick="window.location.href=\'tel:' + b.tel + '\'">' + b.label + '</button>';
+                }
+            }).join('');
+            bottomHtml = '<div class="highlight-box">' + subHtml + '<div class="action-btns">' + btnsHtml + '</div></div>';
+        } else {
+            bottomHtml = '<div class="highlight-box"><p class="highlight-text">' + s.highlight + '</p>' + subHtml + '</div>';
+        }
+        body.innerHTML = '<div class="feature-list">' + rows + '</div>' + bottomHtml;
+    }
+
+    // 도트
+    var dotsEl = document.getElementById('dots');
+    dotsEl.innerHTML = slides.map(function(_, i) {
+        return '<div class="dot' + (i === current ? ' active' : '') + '"></div>';
+    }).join('');
+}
+
+document.getElementById('prev-btn').addEventListener('click', function() {
+    current = (current - 1 + slides.length) % slides.length;
+    render();
+});
+document.getElementById('next-btn').addEventListener('click', function() {
+    current = (current + 1) % slides.length;
+    render();
+});
+
+render();
+</script>
+</body>
+</html>
